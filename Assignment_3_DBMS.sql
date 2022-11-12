@@ -1,7 +1,7 @@
--- SQL Queries – all types of Join, Sub-Query and 
+-- SQL Queries – all types of Join, Sub-Query and
 -- View:
 -- Design at least 10 SQL queries for suitable database
--- application using SQL DML statements: all types of 
+-- application using SQL DML statements: all types of
 -- Join,
 -- Sub-Query and View.
 
@@ -26,49 +26,49 @@ CREATE TABLE orders(
      amount INT NOT NULL
 );
 
-INSERT INTO orders VALUES 
+INSERT INTO orders VALUES
      (1,2,200),
      (2,2,1200),
      (3,3,2300),
      (4,4,2100),
 	 (5,1,100);
-	
-SELECT * FROM orders;    
+
+SELECT * FROM orders;
 
 -- INNER JOIN
-SELECT name,salary,amount 
-FROM customer 
-INNER JOIN orders 
+SELECT name,salary,amount
+FROM customer
+INNER JOIN orders
 ON customer.id = orders.customer_id;
 
 -- LEFT JOIN
-SELECT name,salary,amount 
+SELECT name,salary,amount
 FROM customer
-LEFT JOIN orders 
+LEFT JOIN orders
 ON customer.id = orders.customer_id;
 
 -- RIGHT JOIN
-SELECT name,salary,amount 
-FROM customer 
-RIGHT JOIN orders 
+SELECT name,salary,amount
+FROM customer
+RIGHT JOIN orders
 ON customer.id = orders.customer_id;
 
 
 -- FULL JOIN
-SELECT name,salary,amount 
-FROM customer 
-FULL JOIN orders 
+SELECT name,salary,amount
+FROM customer
+FULL JOIN orders
 ON id = orders.customer_id;
 
 
-SELECT name 
-FROM customer 
-WHERE id 
+SELECT name
+FROM customer
+WHERE id
 IN (SELECT customer_id FROM orders);
 
-UPDATE customer 
-SET salary=salary+1000 
-WHERE id 
+UPDATE customer
+SET salary=salary+1000
+WHERE id
 IN (SELECT customer_id FROM orders);
 
 SELECT * FROM customer;

@@ -22,7 +22,7 @@ UPDATE student_info
 	SET name = 'madhur',email = 'madhur@gmail.com'
     WHERE id = 4;
 
-DELETE FROM student_info WHERE name= 'megha';    
+DELETE FROM student_info WHERE name= 'megha';
 
 UPDATE student_info
      SET name = 'sanket',email = 'sanket@gmail.com'

@@ -7,11 +7,11 @@ CREATE TABLE student_info(
       name VARCHAR(255) NOT NULL,
       email VARCHAR(255)
 );
-    
+
 desc student_info;
 
 show tables;
-    
+
 CREATE VIEW view_student_info as (
     select rollno from student_info
 );
@@ -20,7 +20,7 @@ desc view_student_info;
 
 CREATE INDEX ind_name ON student_info(name);
 
--- sequence 
+-- sequence
  CREATE TABLE info(
      id INT AUTO_INCREMENT PRIMARY KEY,
      rollno INT NOT NULL,
