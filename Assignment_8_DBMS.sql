@@ -7,11 +7,10 @@ Book_Type VARCHAR2(20),
 Issued_By VARCHAR2(20)
 );
 
-
-INSERT INTO Library VALUES (1234,'DBMS','Reference','Garry');
-INSERT INTO Library VALUES (1836,'TOC','Text','Dopesh');
-INSERT INTO Library VALUES (1996,'SPOS','Reference','Hope');
-INSERT INTO Library VALUES (1196,'CNS','Text','Dom');
+INSERT INTO Library VALUES (1,'Harry Potter','Fiction','Garry');
+INSERT INTO Library VALUES (2,'The Alchemist','Fiction','Abbas');
+INSERT INTO Library VALUES (3,'The Monk Who Sold His Ferrari','Fiction','Sohum');
+INSERT INTO Library VALUES (4,'The Secret','Fiction','Itachi');
 
 
 CREATE TABLE Back_UP
@@ -26,7 +25,6 @@ Issued_By VARCHAR2(20)
 CREATE TRIGGER Update_Rec
 AFTER UPDATE OR DELETE ON Library
 FOR EACH ROW
-
 BEGIN
 INSERT INTO Back_UP
 (Book_Id, Book_Name, Book_Type, Issued_By)
@@ -34,9 +32,10 @@ VALUES
 (:old.Book_Id, :old.Book_Name, :old.Book_Type, :old.Issued_By);
 END;
 
-
-UPDATE LIBRARY
-SET Issued_By = 'Sumit'
-WHERE Issued_By = 'Dom';
+-- this will trigger the trigger method
+UPDATE Library
+SET Issued_By = 'Eleven'
+WHERE Issued_By = 'Itachi';
 
 SELECT * FROM Back_UP;
+
