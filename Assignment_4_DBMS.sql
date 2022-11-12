@@ -32,7 +32,6 @@ DECLARE
 	temp NUMBER;
 	doi DATE;
 	FINE NUMBER;
-
 BEGIN
 
 	i_roll_no := :i_roll_no;
