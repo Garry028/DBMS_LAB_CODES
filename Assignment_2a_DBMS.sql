@@ -33,7 +33,7 @@ INSERT INTO info (id,rollno, name) VALUES ('3','083','sanket');
 
 
 -- synonym is replica of the StudentInfo table
-CREATE synonym StudentInfo for student;
+CREATE synonym student for student_info;
 
 desc student;
 
