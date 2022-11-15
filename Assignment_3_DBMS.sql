@@ -5,70 +5,71 @@
 -- Join,
 -- Sub-Query and View.
 
-show databases;
-use dml_commands;
 
-show tables;
-
-CREATE TABLE customer(
+CREATE TABLE Customer_table(
 id INT PRIMARY KEY,
 name VARCHAR(25) NOT NULL,
 salary float NOT NULL
 );
 
-INSERT INTO customer  VALUES (1,"Mohit",500000),(2,"Ajay",250000),(3,"Rutuja",350000),(4,"Hemanshu",353250);
+INSERT INTO Customer_table (id,name,salary) VALUES (1,'Mohit',500000);
+INSERT INTO Customer_table (id,name,salary) VALUES (2,'Ajay',250000);
+INSERT INTO Customer_table (id,name,salary) VALUES (3,'Rutuja',350000);
+INSERT INTO Customer_table (id,name,salary) VALUES (4,'Hemanshu',353250);
 
-select * from customer;
+select * from Customer_table ORDER BY id ASC;
 
-CREATE TABLE orders(
+CREATE TABLE Orders_table(
      order_id INT PRIMARY KEY,
-     customer_id INT REFERENCES customers,
+     Customer_table_id INT REFERENCES Customer_table,
      amount INT NOT NULL
 );
 
-INSERT INTO orders VALUES
-     (1,2,200),
-     (2,2,1200),
-     (3,3,2300),
-     (4,4,2100),
-	 (5,1,100);
+desc Orders_table;
 
-SELECT * FROM orders;
+INSERT INTO Orders_table VALUES(1,2,200);
+INSERT INTO Orders_table VALUES (2,2,1200);
+INSERT INTO Orders_table VALUES (3,3,2300);
+INSERT INTO Orders_table VALUES (4,4,2100);
+INSERT INTO Orders_table VALUES(5,1,100);
+
+SELECT * FROM Orders_table ORDER BY order_id ASC;
 
 -- INNER JOIN
 SELECT name,salary,amount
-FROM customer
-INNER JOIN orders
-ON customer.id = orders.customer_id;
+FROM Customer_table
+INNER JOIN Orders_table
+ON Customer_table.id = Orders_table.Customer_table_id;
 
 -- LEFT JOIN
 SELECT name,salary,amount
-FROM customer
-LEFT JOIN orders
-ON customer.id = orders.customer_id;
+FROM Customer_table
+LEFT JOIN Orders_table
+ON Customer_table.id = Orders_table.Customer_table_id;
 
 -- RIGHT JOIN
 SELECT name,salary,amount
-FROM customer
-RIGHT JOIN orders
-ON customer.id = orders.customer_id;
+FROM Customer_table
+RIGHT JOIN Orders_table
+ON Customer_table.id = Orders_table.Customer_table_id;
 
 
 -- FULL JOIN
 SELECT name,salary,amount
-FROM customer
-FULL JOIN orders
-ON id = orders.customer_id;
+FROM Customer_table
+FULL JOIN Orders_table
+ON id = Orders_table.Customer_table_id;
 
+--  This are sub querys
 
 SELECT name
-FROM customer
+FROM Customer_table
 WHERE id
-IN (SELECT customer_id FROM orders);
+IN (SELECT Customer_table_id FROM Orders_table);
 
-UPDATE customer
+UPDATE Customer_table
 SET salary=salary+1000
 WHERE id
-IN (SELECT customer_id FROM orders);
+IN (SELECT Customer_table_id FROM Orders_table);
 
-SELECT * FROM customer;
+SELECT * FROM Customer_table;
