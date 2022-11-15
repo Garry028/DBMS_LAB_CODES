@@ -34,8 +34,8 @@ DECLARE
 	FINE NUMBER;
 BEGIN
 
-	i_roll_no := :i_roll_no;
-	NAME_of_book := :NAMEofbook;
+	i_roll_no := i_roll_no;
+	NAME_of_book := NAMEofbook;
 	dbms_output.put_line('return date :' || return_date);
 	SELECT to_date(BORROWERR.dateofissue,'DD-MM-YYYY') INTO doi FROM BORROWERR WHERE BORROWERR.roll_no = i_roll_no AND BORROWERR.NAME_of_book = NAME_of_book;
 	no_of_days := return_date-doi;
