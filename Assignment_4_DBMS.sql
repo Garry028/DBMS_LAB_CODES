@@ -45,7 +45,7 @@ BEGIN
 
 	ELSIF (no_of_days>30 ) THEN
 		temp := no_of_days-30;
-		FINE := 150 + temp*50;
+		FINE := 75 + temp*50;
 	END IF;
 	dbms_output.put_line('FINE :' || FINE);
 	INSERT INTO FINE VALUES(i_roll_no,return_date,FINE);
@@ -54,6 +54,4 @@ BEGIN
 END;
 
 
-    FINE TABLE AFTER SUBMITTING :
 
-    BORROWERR TABLE AFTER SUBMITTING

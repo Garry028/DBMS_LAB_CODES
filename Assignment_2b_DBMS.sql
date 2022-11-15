@@ -1,7 +1,3 @@
-show databases;
-create database dml_commands;
-use dml_commands;
-
 CREATE TABLE student_info (
 id INT AUTO_INCREMENT PRIMARY KEY,
 rollno INT NOT NULL,
