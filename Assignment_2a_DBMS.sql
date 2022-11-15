@@ -1,5 +1,5 @@
 CREATE TABLE student_info(
-     rollno INT PRIMARY KEY,
+      rollno INT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       email VARCHAR(255)
 );
