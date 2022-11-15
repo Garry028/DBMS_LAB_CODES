@@ -13,3 +13,5 @@ VALUES ('Joan', 'Colbert');
 SELECT student_id, first_name, last_name
 FROM student12c
 ORDER BY student_id;
+
+-- This auto works only on new version of oracle
