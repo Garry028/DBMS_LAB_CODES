@@ -34,21 +34,25 @@ DECLARE
 	no_of_days NUMBER;
 	return_date DATE := TO_DATE(SYSDATE,'DD-MM-YYYY');
 	temp NUMBER;
-	doi DATE;
+	doi DATE;   -- this is date of issue
 	fine NUMBER:=0;
-        NEG_DAYS exception;
+    NEG_DAYS exception;
 
 BEGIN
 
-	i_roll_no := :i_roll_no;
+	i_roll_no := :i_roll_no;  --  this is user input user will put roll no and the name of book
 	name_of_book := :name_of_book;
 
+    -- this is query to find date of issue of certain book
 	SELECT to_date(borrower.dateofissue,'DD-MM-YYYY') INTO doi
         FROM borrower
         WHERE borrower.roll_no = i_roll_no
         AND borrower.name_of_book = name_of_book;
 
+-- this is to find no of days between return date and date of issue
         no_of_days := return_date-doi;
+
+-- this is to check if no of days is negative
 	IF (no_of_days<0) THEN
         raise NEG_DAYS;
         END IF;
@@ -57,7 +61,7 @@ BEGIN
 		fine := 5*(no_of_days-15);
 
 	ELSIF (no_of_days>30 ) THEN
-		temp := no_of_days-30;
+		temp := no_of_days-30; -- first 30 will charge only 5 rs per day then  50 rupess per day start
 		fine := 75 + temp*50;
 	END IF;
 	dbms_output.put_line(fine);
@@ -66,6 +70,7 @@ BEGIN
         END IF;
 
         UPDATE borrower SET status = 'R' WHERE borrower.roll_no = i_roll_no;
+		-- this is to update the status of book to returned R means RETURN I means ISSUED
 EXCEPTION
         WHEN NEG_DAYS THEN
 	DBMS_OUTPUT.PUT_LINE('NEGATIVE DAYS NOT EXCEPTED');
