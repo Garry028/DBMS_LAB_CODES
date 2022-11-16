@@ -1,9 +1,10 @@
+--  exception added
 CREATE TABLE  BORROWER
 (
-roll_no NUMBER, 
-name VARCHAR2(25), 
+roll_no NUMBER,
+name VARCHAR2(25),
 dateofissue DATE,
-name_of_book VARCHAR2(25), 
+name_of_book VARCHAR2(25),
 status VARCHAR2(20)
 );
 
@@ -27,7 +28,7 @@ INSERT INTO borrower VALUES(50,'SHREYAS',TO_DATE('09-09-2022','DD-MM-YYYY'),'SPI
 INSERT INTO borrower VALUES(51,'SHREYA',TO_DATE('09-12-2022','DD-MM-YYYY'),'SPIDER','I');
 
 
-DECLARE 
+DECLARE
 	i_roll_no NUMBER;
 	name_of_book VARCHAR2(25);
 	no_of_days NUMBER;
@@ -42,11 +43,11 @@ BEGIN
 	i_roll_no := :i_roll_no;
 	name_of_book := :name_of_book;
 
-	SELECT to_date(borrower.dateofissue,'DD-MM-YYYY') INTO doi   
-        FROM borrower 
-        WHERE borrower.roll_no = i_roll_no 
+	SELECT to_date(borrower.dateofissue,'DD-MM-YYYY') INTO doi
+        FROM borrower
+        WHERE borrower.roll_no = i_roll_no
         AND borrower.name_of_book = name_of_book;
-	
+
         no_of_days := return_date-doi;
 	IF (no_of_days<0) THEN
         raise NEG_DAYS;
@@ -54,7 +55,7 @@ BEGIN
         dbms_output.put_line(no_of_days);
 	IF (no_of_days >15 AND no_of_days <=30) THEN
 		fine := 5*(no_of_days-15);
-		
+
 	ELSIF (no_of_days>30 ) THEN
 		temp := no_of_days-30;
 		fine := 75 + temp*50;
@@ -62,8 +63,8 @@ BEGIN
 	dbms_output.put_line(fine);
 	IF (fine>0) THEN
         INSERT INTO fine VALUES(i_roll_no,return_date,fine);
-        END IF;    
-               
+        END IF;
+
         UPDATE borrower SET status = 'R' WHERE borrower.roll_no = i_roll_no;
 EXCEPTION
         WHEN NEG_DAYS THEN
