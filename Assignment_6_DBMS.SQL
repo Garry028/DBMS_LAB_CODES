@@ -33,9 +33,9 @@ BEGIN
 END procedure_1;
 
 BEGIN
-	procedure_1(1,'Garry',80);
-	procedure_1(2,'Abbas ',20);
-	procedure_1(3,'Sohum ',50);
-	procedure_1(4,'Itachi ',70);
+	procedure_1(1,'Garry',800);
+	procedure_1(2,'Abbas ',720);
+	procedure_1(3,'Sohum ',650);
+	procedure_1(4,'Itachi ',570);
 END;
 

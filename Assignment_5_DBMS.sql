@@ -1,4 +1,7 @@
-CREATE TABLE Circle(radius NUMBER,area NUMBER);
+CREATE TABLE Circle(
+	radius NUMBER,
+	area NUMBER
+); -- table to store radius & area
 
 DECLARE
 	radius_var NUMBER;
