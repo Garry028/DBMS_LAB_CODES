@@ -19,17 +19,36 @@ CREATE INDEX ind_name ON student_info(name);
 ALTER TABLE student_info
 DROP INDEX ind_name;
 
--- sequence
+
  CREATE TABLE info(
      id INT PRIMARY KEY,
      rollno INT NOT NULL,
      name VARCHAR(255)
 );
 
+---- sequence
+CREATE TABLE info_main(
+     id_seq INT PRIMARY KEY,
+     rollno INT NOT NULL,
+     name VARCHAR(255)
+);
 
-INSERT INTO info (id,rollno, name) VALUES ('1','081','mihir');
-INSERT INTO info (id,rollno, name) VALUES ('2','082','megha');
-INSERT INTO info (id,rollno, name) VALUES ('3','083','sanket');
+
+CREATE SEQUENCE id_seq
+    INCREMENT BY 1
+    START WITH 1
+    MINVALUE 1
+    MAXVALUE 100
+    CYCLE
+    CACHE 2;
+
+
+
+INSERT INTO info_main (id_seq,rollno, name) VALUES (id_seq.NEXTVAL,'081','mihir');
+INSERT INTO info_main (id_seq,rollno, name) VALUES (id_seq.NEXTVAL,'082','megha');
+INSERT INTO info_main (id_seq,rollno, name) VALUES (id_seq.NEXTVAL,'083','sanket');
+
+select * from info_main;
 
 
 -- synonym is replica of the StudentInfo table
