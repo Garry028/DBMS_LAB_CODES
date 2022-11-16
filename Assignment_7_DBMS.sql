@@ -21,8 +21,8 @@ SELECT Name from Cust_Old;
 CURSOR cur2 IS
 SELECT Name from Cust_New;
 
-R VARCHAR(15);
 C_Name VARCHAR(15);
+R VARCHAR(15);
 
 BEGIN
 OPEN cur1;
