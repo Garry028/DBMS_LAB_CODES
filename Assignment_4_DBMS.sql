@@ -1,56 +1,81 @@
-CREATE TABLE  borrower_ka_table
+CREATE TABLE  BORROWER
 (
-roll_no NUMBER,
-NAME VARCHAR2(25),
+roll_no NUMBER, 
+name VARCHAR2(25), 
 dateofissue DATE,
-NAME_of_book VARCHAR2(25),
+name_of_book VARCHAR2(25), 
 status VARCHAR2(20)
 );
 
-CREATE TABLE FINE_TABLE
+CREATE TABLE FINE
 (
 roll_no NUMBER,
 date_of_return DATE,
 amt NUMBER
 );
 
-INSERT INTO borrower_ka_table VALUES(54,'Garry',TO_DATE('10-01-2022','MM-DD-YYYY'),'HARRY POTTER','I');
+INSERT INTO borrower VALUES(54,'SUDARSHAN',TO_DATE('01-10-2022','DD-MM-YYYY'),'HARRY POTTER','I');
 
-INSERT INTO borrower_ka_table VALUES(56,'Harry',TO_DATE('10-15-2022','MM-DD-YYYY'),'DARK MATTER','I');
+INSERT INTO borrower VALUES(56,'SUMIT',TO_DATE('15-10-2022','DD-MM-YYYY'),'DARK MATTER','I');
 
-INSERT INTO borrower_ka_table VALUES(68,'Larry',TO_DATE('09-24-2022','MM-DD-YYYY'),'SILENT HILL','I');
+INSERT INTO borrower VALUES(68,'MANDAR',TO_DATE('24-09-2022','DD-MM-YYYY'),'SILENT HILL','I');
 
-INSERT INTO borrower_ka_table VALUES(66,'Carry',TO_DATE('08-26-2022','MM-DD-YYYY'),'GOD OF WAR','I');
+INSERT INTO borrower VALUES(66,'SIDDHAM',TO_DATE('26-08-2022','DD-MM-YYYY'),'GOD OF WAR','I');
 
-INSERT INTO borrower_ka_table VALUES(50,'Barry',TO_DATE('09-09-2022','MM-DD-YYYY'),'SPIDER-MAN','I');
+INSERT INTO borrower VALUES(50,'SHREYAS',TO_DATE('09-09-2022','DD-MM-YYYY'),'SPIDER-MAN','I');
 
-DECLARE
+INSERT INTO borrower VALUES(51,'SHREYA',TO_DATE('09-12-2022','DD-MM-YYYY'),'SPIDER','I');
+
+
+DECLARE 
 	i_roll_no NUMBER;
-	NAME_of_book VARCHAR2(25);
+	name_of_book VARCHAR2(25);
 	no_of_days NUMBER;
-	return_date DATE := TO_DATE(SYSDATE,'MM-DD-YYYY');
+	return_date DATE := TO_DATE(SYSDATE,'DD-MM-YYYY');
 	temp NUMBER;
 	doi DATE;
-	FINES NUMBER;
+	fine NUMBER:=0;
+        NEG_DAYS exception;
 
 BEGIN
 
 	i_roll_no := :i_roll_no;
-	NAME_of_book := :NAMEofbook;
-	dbms_output.put_line(return_date);
-	SELECT to_date(borrower_ka_table.dateofissue,'MM-DD-YYYY') INTO doi FROM borrower_ka_table WHERE borrower_ka_table.roll_no = i_roll_no AND borrower_ka_table.NAME_of_book = NAME_of_book;
-	no_of_days := return_date-doi;
-	dbms_output.put_line( no_of_days);
+	name_of_book := :name_of_book;
+
+	SELECT to_date(borrower.dateofissue,'DD-MM-YYYY') INTO doi   
+        FROM borrower 
+        WHERE borrower.roll_no = i_roll_no 
+        AND borrower.name_of_book = name_of_book;
+	
+        no_of_days := return_date-doi;
+	IF (no_of_days<0) THEN
+        raise NEG_DAYS;
+        END IF;
+        dbms_output.put_line(no_of_days);
 	IF (no_of_days >15 AND no_of_days <=30) THEN
-		FINES := 5*no_of_days;
+		fine := 5*(no_of_days-15);
+		
 	ELSIF (no_of_days>30 ) THEN
 		temp := no_of_days-30;
-		FINES := 150 + temp*50;
+		fine := 75 + temp*50;
 	END IF;
-	dbms_output.put_line( FINES);
-	INSERT INTO FINE_TABLE VALUES(i_roll_no,return_date,FINES);
-	UPDATE borrower_ka_table SET status = 'R' WHERE borrower_ka_table.roll_no = i_roll_no;
-
+	dbms_output.put_line(fine);
+	IF (fine>0) THEN
+        INSERT INTO fine VALUES(i_roll_no,return_date,fine);
+        END IF;    
+               
+        UPDATE borrower SET status = 'R' WHERE borrower.roll_no = i_roll_no;
+EXCEPTION
+        WHEN NEG_DAYS THEN
+	DBMS_OUTPUT.PUT_LINE('NEGATIVE DAYS NOT EXCEPTED');
+        when NO_DATA_FOUND then
+             dbms_output.put_line('no_data_found');
+        when OTHERS then
+             dbms_output.put_line('some_error_found');
 END;
-/
 
+SELECT * FROM FINE
+SELECT * FROM BORROWER
+
+DROP TABLE FINE
+DROP TABLE BORROWER
